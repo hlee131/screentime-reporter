@@ -9,12 +9,12 @@ import psutil
 def _parse_config():
     """Parses config.txt for frequency information"""
     try:
-        with open('config.txt', 'r') as file:
+        with open('../config.txt', 'r') as file:
             lines = file.readlines()
             _parse_config.freq = lines[1].split(':')[1].strip('\n').strip()
             
     except FileNotFoundError:
-        raise FileNotFoundError('Please setup with setup.py first! ')
+        raise FileNotFoundError(f'{os.getcwd()}Please setup with setup.py first! ')
 
 
 def _get_pid():
@@ -74,9 +74,11 @@ def file_creation():
         with open(supposed_file, 'w'): pass
 
 
-def to_dict():
+def to_dict(log_file=None):
     """Converts log txt to a Python dict"""
-    log_file = os.getcwd() + f'\logs\{date.today().isocalendar()[1]}.txt'
+    if log_file == None:
+        log_file = os.path.dirname(os.getcwd()) + f'\logs\{date.today().isocalendar()[1]}.txt'
+    
     with open(log_file, 'r') as file:
         stats = file.readlines()
         stats = [line.strip('\n') for line in stats]
@@ -88,6 +90,7 @@ def to_dict():
 
     return latest_stats
 
-time.sleep(5)
-_parse_config()
-log()
+if __name__ == '__main__':
+    time.sleep(5)
+    _parse_config()
+    log()
