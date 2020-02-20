@@ -15,15 +15,22 @@ email = input('Email: ').strip()
 password = getpass.getpass('Password: ')
 frequency = input('How often would you like us to get your active application (in seconds)? ')
 
-path = os.getcwd() + '\logs' 
+log_path = os.path.dirname(os.getcwd()) + '\logs' 
 start_week = date.today().isocalendar()[1]
 try:
-    os.mkdir(path)
-    with open(f'{path}\{start_week}.txt', 'w'): pass
+    os.mkdir(log_path)
+    with open(f'{log_path}\{start_week}.txt', 'w'): pass
 
-except FileExistsError:
-    pass
+except FileExistsError: pass
+
+
+graph_path = os.path.dirname(os.getcwd()) + '\graphs'
+try:
+    os.mkdir(graph_path)
+
+except FileExistsError: pass
 
 with open(f'{os.getcwd()}\config.txt', 'w') as file: 
     file.write(f'email: {email}\n')
     file.write(f'frequency: {frequency}\n')
+
