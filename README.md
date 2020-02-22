@@ -15,6 +15,7 @@ As of now:
 ## Future Ideas
 1. Change log format from:   
 (Name) : (Time) => csv file   
-2. Block applications that you deem as a waste of time
-3. Tracking websites
-4. Blocking websites
+2. Better HTML email design
+3. Block applications that you deem as a waste of time
+4. Tracking websites
+5. Blocking websites
