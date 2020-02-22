@@ -1,5 +1,9 @@
 # What is screntime-reporter?
-screentime-reporter (STR) was developed over my mid-winter break as my first 'real' project. The purpose of this project was not to check how much time was spent on the computer, as we all know we spend too much time on the computer, but how we are spending that time. This is supposed to then help with productivity and other things
+screentime-reporter (STR) was developed over my mid-winter break in my freshman year in high school as my first 'real' project. The purpose of this project was not to check how much time was spent on the computer, as we all know we spend too much time on the computer, but how we are spending that time. This is supposed to then help with productivity and other things
+
+## Installation
+Run:   
+`python3 main.py -s`
 
 ## What does screentime-reporter do?  
 STR checks for the active application at intervals determined by the user. At the end of the week, the script will then send the week's and all time statistics to user's email. 

@@ -5,7 +5,7 @@ import os
 
 from matplotlib import pyplot as plt
 
-from log import to_dict
+from .log import to_dict
 
 
 def create_bar_chart():
@@ -16,7 +16,7 @@ def create_bar_chart():
     """
     current_date = date.today().isocalendar()[1]
     current_data = to_dict()
-    past_data = os.path.dirname(os.getcwd()) + f'\logs\{current_date - 1}.txt'
+    past_data = os.getcwd() + f'\logs\{current_date - 1}.txt'
     past_data = to_dict(past_data)
     apps = list(current_data.keys())
     apps.extend(list(past_data.keys()))
@@ -33,11 +33,11 @@ def create_bar_chart():
 
     for app in list(current_data.keys()):
         graphed.append(app)
-        cur = plt.barh(y_indexes[current] + 0.12, math.floor(current_data[app]/60),
+        cur = plt.barh(y_indexes[current] + 0.12, math.floor(int(current_data[app])/60),
                 height=0.24, color=current_color)
 
         try: 
-            past = plt.barh(y_indexes[current] - 0.12, math.floor(past_data[app]/60), 
+            past = plt.barh(y_indexes[current] - 0.12, math.floor(int(past_data[app])/60), 
                     height=0.24, color=past_color)
 
         except KeyError:
@@ -49,10 +49,10 @@ def create_bar_chart():
     
         else: 
             index = apps.index(app)
-            past = plt.barh(y_indexes[index] - 0.12, math.floor(past_data[app]/60),
+            past = plt.barh(y_indexes[index] - 0.12, math.floor(int(past_data[app])/60),
                     height=0.24, color=past_color)
 
-    save_destination = os.path.dirname(os.getcwd()) + f'\graphs\{current_date}bar'
+    save_destination = os.getcwd() + f'\graphs\{current_date}bar'
     plt.yticks(ticks=y_indexes, labels=apps)
     plt.tight_layout()
     plt.legend([cur, past], ['This Week', 'Last Week'])
@@ -69,9 +69,9 @@ def create_pie_chart():
     current_date = date.today().isocalendar()[1]
     stats = _get_top_five()
     times = [t[1] for t in stats]
-    labels = [f'{t[0]}\n({math.floor(t[1]/60)} Minutes)' for t in stats]
+    labels = [f'{t[0]}\n({math.floor(int(t[1])/60)} Minutes)' for t in stats]
 
-    save_destination = os.path.dirname(os.getcwd()) + f'\graphs\{current_date}pie'
+    save_destination = os.getcwd() + f'\graphs\{current_date}pie'
     colors = ['#333333', '#48e5c2', '#fcfaf9', '#f3d3bd', '#5e5e5e']
     plt.pie(times, wedgeprops={'edgecolor' : 'black'},
             labels=labels, colors=colors)
@@ -84,8 +84,7 @@ def create_pie_chart():
 def _get_top_five():
     """Gets the top five applications of all time"""
     path = os.getcwd()
-    parent = os.path.dirname(path)
-    path = parent + '\logs'
+    path = path + '\logs'
     directory = os.fsencode(path)
     all_time_stats = {}
 
@@ -95,6 +94,8 @@ def _get_top_five():
 
     dicts = list(all_time_stats.values())
     dic = _merge_dicts(dicts)
+    dic = {k:int(v) for k,v in dic.items()}
+    print(dic)
     dic = Counter(dic)
     dic = dic.most_common(5)
     return dic
@@ -110,7 +111,8 @@ def _merge_dicts(dicts):
 
     for dic in dicts:
         for k,v in dic.items():
-            base_dict[k] = base_dict.get(k, 0) + v
+            print(type(v))
+            base_dict[k] = int(base_dict.get(k, 0)) + int(v)
 
     return base_dict
 
@@ -125,3 +127,13 @@ def _filter(iterable):
             used.append(i)
             r.append(i)
     return r
+
+def check_graphs():
+    week_num = date.today().isocalendar()[1]
+    pie_chart = os.getcwd() + f'\graphs\{week_num}pie.png'
+    bar_chart = os.getcwd() + f'\graphs\{week_num}bar.png'
+
+    if os.path.exists(bar_chart) and os.path.exists(pie_chart):
+        return True
+
+    else: return False
