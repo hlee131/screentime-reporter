@@ -15,6 +15,9 @@ email = input('Email: ').strip()
 password = getpass.getpass('Password: ')
 frequency = input('How often would you like us to get your active application (in seconds)? ')
 
+os.environ['EMAIL_ADDRESS'] = email
+os.environ['EMAIL_PASSWORD'] = password
+
 log_path = os.path.dirname(os.getcwd()) + '\logs' 
 start_week = date.today().isocalendar()[1]
 try:
@@ -30,7 +33,7 @@ try:
 
 except FileExistsError: pass
 
-with open(f'{os.getcwd()}\config.txt', 'w') as file: 
+with open(f'{os.path.dirname(os.getcwd())}\config.txt', 'w') as file: 
     file.write(f'email: {email}\n')
     file.write(f'frequency: {frequency}\n')
 

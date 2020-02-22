@@ -24,8 +24,8 @@ def create_bar_chart():
     y_indexes = list(range(len(apps)))
     graphed = []
     current = 0
-    current_color = ['#6e44ff']
-    past_color = ['#ef7a85']
+    current_color = ['#48e5c2']
+    past_color = ['#5e5e5e']
 
     plt.title('What Apps Did You Use This Week?')
     plt.ylabel('Applications')
@@ -72,7 +72,7 @@ def create_pie_chart():
     labels = [f'{t[0]}\n({math.floor(t[1]/60)} Minutes)' for t in stats]
 
     save_destination = os.path.dirname(os.getcwd()) + f'\graphs\{current_date}pie'
-    colors = ['#6e44ff', '#b892ff', '#ffc2e2', '#ff90b3', '#ef7a85']
+    colors = ['#333333', '#48e5c2', '#fcfaf9', '#f3d3bd', '#5e5e5e']
     plt.pie(times, wedgeprops={'edgecolor' : 'black'},
             labels=labels, colors=colors)
     plt.title('Top 5 Most Used Applications (All Time)')

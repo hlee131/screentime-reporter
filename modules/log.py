@@ -79,6 +79,9 @@ def to_dict(log_file=None):
     if log_file == None:
         log_file = os.path.dirname(os.getcwd()) + f'\logs\{date.today().isocalendar()[1]}.txt'
     
+    else:
+        log_file = os.path.dirname(os.getcwd()) + f'\logs\{log_file}'
+
     with open(log_file, 'r') as file:
         stats = file.readlines()
         stats = [line.strip('\n') for line in stats]
