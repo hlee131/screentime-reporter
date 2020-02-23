@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Weekly Report</title>
+    </head>
+    <body style='background-color: #5e5e5e;
+                width: 660px;'>
+        <div id='first' style='color: #333;
+                            background-color: #48e5c2;
+                            text-align: left;
+                            padding: 10px;
+                            margin-left: auto;
+                            margin-right: auto;'>
+            <h1><b>You spent...</b></h1>
+            <h2>%d hours this week, %d hours a day</h2>
+            <img src='cid:%s' alt='bar-graph' title='bar-graph' width='640' height='480' style='margin-left: auto;
+                                                                                                margin-right: auto;'>
+        </div>
+        <div id='second' style='margin-top: 10px;
+                                color: #333;
+                                background-color: #48e5c2;
+                                text-align: right;
+                                padding: 10px;
+                                margin-left: auto;
+                                margin-right: auto;'>
+            <div class='content'>
+                <h1><b>In total, you spent...</b></h1>
+                <h2>%d hours, %d hours a week</h2>
+                <img src='cid:%s' alt='pie-chart' title='pie-chart' width='640' height='480' style='margin-left: auto;
+                                                                                                    margin-right: auto;'>
+            </div>
+        </div>
+        <div id='footer' style='text-align: center;
+                                background-color: #fcfaf9;
+                                color:#333;'>
+            <p><a href='https://github.com/hlee131/screentime-reporter#subscription'>Unsubscribe</a> | 
+                <a href='https://github.com/hlee131/screentime-reporter'>Project Page</a> | 
+                <a href='https://github.com/hlee131/screentime-reporter/issues'>Report a bug</a></p>
+        </div>
+    </body>
+</html>

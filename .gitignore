@@ -6,3 +6,4 @@
 *.css
 *.bat
 main.py
+!**/modules/template.txt
