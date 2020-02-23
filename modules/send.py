@@ -75,3 +75,13 @@ def _get_values():
     path_pie = os.getcwd() + f'\graphs\{week}pie.png'
 
     return this_week, per_day, bar_id, total_time, time_per_week, pie_id, path_bar, path_pie
+
+
+def sub(subscribed):
+    """Unsubcribes from the weekly email by altering config.txt"""
+    config_path = os.getcwd() + '\config.txt'
+    config = to_dict(config_path)
+    config['subscribe'] = True if subscribed else False
+    with open(config_path, 'w') as file:
+        for k, v in config.items():
+            file.write(f'{k} : {v}\n')

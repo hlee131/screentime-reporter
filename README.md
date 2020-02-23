@@ -2,11 +2,28 @@
 screentime-reporter (STR) was developed over my mid-winter break in my freshman year in high school as my first 'real' project. The purpose of this project was not to check how much time was spent on the computer, as we all know we spend too much time on the computer, but how we are spending that time. This is supposed to then help with productivity and other things
 
 ## Installation
-Run:   
+1. Run:   
 `python3 main.py -s`
+
+2. Install dependencies    
+
+3. Use Windows Task Scheduler to run script on log-on:   
+  * Click "Create Basic Task..." on the right.
+  * Give the task a name, e.g. "STR" and a description and click "Next >".
+  * Click "When I log on" and then "Next >".
+  * Then click "Start a program" and "Next >".
+  * Then attach the run.bat file in the program's main directory.
+  * Then click "Finish"
 
 ## What does screentime-reporter do?  
 STR checks for the active application at intervals determined by the user. At the end of the week, the script will then send the week's and all time statistics to user's email. 
+
+## Subscription
+To subscribe to weekly email (default):   
+`python3 main.py --sub`
+
+To unsubscribe from weekly email:      
+`python3 main.py --unsub`
 
 ## What are libraries needed for this tool? 
 As of now:   
