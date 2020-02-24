@@ -3,7 +3,7 @@ screentime-reporter (STR) was developed over my mid-winter break in my freshman 
 
 ## Installation
 1. Run:   
-`python3 main.py -s`
+`py main.pyw -s`
 
 2. Install dependencies    
 
@@ -12,7 +12,7 @@ screentime-reporter (STR) was developed over my mid-winter break in my freshman 
   * Give the task a name, e.g. "STR" and a description and click "Next >".
   * Click "When I log on" and then "Next >".
   * Then click "Start a program" and "Next >".
-  * Then attach the run.bat file in the program's main directory.
+  * Then attach the main.pyw file in the program's main directory.
   * Then click "Finish"
 
 ## What does screentime-reporter do?  
@@ -20,10 +20,10 @@ STR checks for the active application at intervals determined by the user. At th
 
 ## Subscription
 To subscribe to weekly email (default):   
-`python3 main.py --sub`
+`py main.pyw --sub`
 
 To unsubscribe from weekly email:      
-`python3 main.py --unsub`
+`py main.pyw --unsub`
 
 ## What are libraries needed for this tool? 
 As of now:   

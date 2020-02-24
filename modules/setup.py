@@ -14,9 +14,9 @@ def setup():
     # Prompts user for information
     print('Please log into your email account to get started.\n')
     print('Please enable less secure apps on your email account, \nor get an application password for Python to use this script.\n')
-    email = input('Email: ').strip()
-    password = getpass.getpass('Password: ')
-    frequency = input('How often would you like us to get your active application (in seconds)? ')
+    EMAIL = input('Email: ').strip()
+    PASSWORD = getpass.getpass('Password: ')
+    FREQUENCY = input('How often would you like us to get your active application (in seconds)? ')
 
     # Creates log files and folders
     log_path = os.getcwd() + '\logs' 
@@ -36,16 +36,10 @@ def setup():
 
     # Compiles info into a config file
     with open(f'{os.getcwd()}\config.txt', 'w') as file: 
-        file.write(f'email : {email}\n')
-        file.write(f'password : {password}\n')
-        file.write(f'frequency : {frequency}\n')
+        file.write(f'email : {EMAIL}\n')
+        file.write(f'password : {PASSWORD}\n')
+        file.write(f'frequency : {FREQUENCY}\n')
         file.write('subscribe : True')
-
-    # Creates necessary bat file
-    python_path = sys.executable
-    script_path = os.getcwd() + '\main.pyw'
-    with open('run.bat', 'w') as file:
-        file.write(f'"{python_path}" "{script_path}"')
 
 
 def checks():

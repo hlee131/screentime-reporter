@@ -84,7 +84,7 @@ def to_dict(file=None):
         
         info = [line.split(':') for line in lines]
         keys = [element[0].strip() for element in info]
-        values = [element[1] for element in info]
+        values = [element[1].strip() for element in info]
         latest_stats = dict(zip(keys, values))
 
     return latest_stats

@@ -10,7 +10,7 @@ from modules import graph, log, send, setup
 def main_loop():
     configs = log.to_dict('config.txt')
     sleep_time = configs['frequency']
-    send = bool(configs['subscribe'])
+    subbed = bool(configs['subscribe'])
     week_num = date.today().isocalendar()[1]
 
     if not setup.checks():
@@ -34,7 +34,7 @@ def main_loop():
             graph.create_bar_chart()
             graph.create_pie_chart()
 
-            if send: send.send()
+            if subbed: send.send()
 
         while True:
             log.log()
