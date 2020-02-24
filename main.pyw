@@ -8,6 +8,15 @@ from modules import graph, log, send, setup
 
 
 def main_loop():
+    if len(sys.argv) > 1:
+        if sys.argv[1] == '-s': setup.setup()
+
+        if sys.argv[1] == '--unsub': send.sub(False)
+
+        if sys.argv[1] == '--sub': send.sub(True)
+
+        return
+
     configs = log.to_dict('config.txt')
     sleep_time = configs['frequency']
     subbed = bool(configs['subscribe'])
@@ -20,24 +29,16 @@ def main_loop():
 
         raise Exception('Please setup') 
 
-    if len(sys.argv) > 1:
-        if sys.argv[1] == '-s': setup.setup()
+    log.file_creation()
 
-        if sys.argv[1] == '--unsub': send.sub(False)
+    if datetime.datetime.today().weekday() == 6 and not graph.check_graphs():
+        graph.create_bar_chart()
+        graph.create_pie_chart()
 
-        if sys.argv[1] == '--sub': send.sub(True)
+        if subbed: send.send()
 
-    else:
-        log.file_creation()
-
-        if datetime.datetime.today().weekday() == 6 and not graph.check_graphs():
-            graph.create_bar_chart()
-            graph.create_pie_chart()
-
-            if subbed: send.send()
-
-        while True:
-            log.log()
-            time.sleep(int(sleep_time))
+    while True:
+        log.log()
+        time.sleep(int(sleep_time))
 
 main_loop()
