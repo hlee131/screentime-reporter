@@ -8,15 +8,16 @@ from matplotlib import pyplot as plt
 from .log import to_dict
 
 
-def create_bar_chart():
+def create_bar_chart(wd):
     """Bar chart that compares two weeks' data
 
     1. Filters duplicate application
     2. Graphs app by app instead of providing an iterable
     """
+    file = wd + f'\logs\{date.today().isocalendar()[1]}.txt'
     current_date = date.today().isocalendar()[1]
-    current_data = to_dict()
-    past_data = os.getcwd() + f'\logs\{current_date - 1}.txt'
+    current_data = to_dict(file)
+    past_data = wd + f'\logs\{current_date - 1}.txt'
     past_data = to_dict(past_data)
     apps = list(current_data.keys())
     apps.extend(list(past_data.keys()))
@@ -52,7 +53,7 @@ def create_bar_chart():
             past = plt.barh(y_indexes[index] - 0.12, math.floor(int(past_data[app])/60),
                     height=0.24, color=past_color)
 
-    save_destination = os.getcwd() + f'\graphs\{current_date}bar'
+    save_destination = wd + f'\graphs\{current_date}bar'
     plt.yticks(ticks=y_indexes, labels=apps)
     plt.tight_layout()
     plt.legend([cur, past], ['This Week', 'Last Week'])
@@ -60,18 +61,18 @@ def create_bar_chart():
     plt.show()
     
 
-def create_pie_chart():
+def create_pie_chart(wd):
     """Creates pie chart for all time stats
 
     1. Data called using _get_top_five
     2. Graphed using plt.pie
     """
     current_date = date.today().isocalendar()[1]
-    stats = _get_top_five()
+    stats = _get_top_five(wd)
     times = [t[1] for t in stats]
     labels = [f'{t[0]}\n({math.floor(int(t[1])/60)} Minutes)' for t in stats]
 
-    save_destination = os.getcwd() + f'\graphs\{current_date}pie'
+    save_destination = wd + f'\graphs\{current_date}pie'
     colors = ['#333333', '#48e5c2', '#fcfaf9', '#f3d3bd', '#5e5e5e']
     plt.pie(times, wedgeprops={'edgecolor' : 'black'},
             labels=labels, colors=colors)
@@ -81,9 +82,9 @@ def create_pie_chart():
     plt.show()
 
 
-def _get_top_five():
+def _get_top_five(wd):
     """Gets the top five applications of all time"""
-    path = os.getcwd()
+    path = wd
     path = path + '\logs'
     directory = os.fsencode(path)
     all_time_stats = {}
@@ -128,7 +129,9 @@ def _filter(iterable):
             r.append(i)
     return r
 
+
 def check_graphs():
+    """Checks whether graphs needed are present"""
     week_num = date.today().isocalendar()[1]
     pie_chart = os.getcwd() + f'\graphs\{week_num}pie.png'
     bar_chart = os.getcwd() + f'\graphs\{week_num}bar.png'

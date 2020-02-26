@@ -36,7 +36,7 @@ def get_active_application():
     return active_processes[pid]
 
 
-def log():
+def log(wd):
     """Logs the current application using get_active_application
 
     Frequency is determined by user in setup.py. File Format:
@@ -44,11 +44,12 @@ def log():
     (Application name) : (time spent)
     ...
     """
-    frequency = to_dict(os.getcwd() + '\config.txt')['frequency']
+    frequency = to_dict(wd + '\config.txt')['frequency']
     active_application = get_active_application()
-    latest_stats = to_dict()
+    file = wd + f'\logs\{date.today().isocalendar()[1]}.txt'
+    latest_stats = to_dict(file)
     latest_stats = {k:int(v) for k,v in latest_stats.items()}
-    log_file = os.getcwd() + f'\logs\{date.today().isocalendar()[1]}.txt'
+    log_file = wd + f'\logs\{date.today().isocalendar()[1]}.txt'
 
     if active_application in latest_stats.keys():
         latest_stats[active_application] += int(frequency)
@@ -61,23 +62,19 @@ def log():
             file.write(f'{active_application} : {frequency}\n')
             
 
-def file_creation():
+def file_creation(wd):
     """Checks day of week and directory to determine if new file is needed"""
-    path = os.getcwd() + '\logs'
+    path = wd + '\logs'
     supposed_file = f'\{date.today().isocalendar()[1]}.txt'
     supposed_file = path + supposed_file
     if not os.path.exists(supposed_file):
         with open(supposed_file, 'w'): pass
+        return True
+    return False
 
 
-def to_dict(file=None):
+def to_dict(file):
     """Converts log or config txt to a Python dict"""
-    if file == None:
-        file = os.getcwd() + f'\logs\{date.today().isocalendar()[1]}.txt'
-    
-    else:
-        pass
-
     with open(file, 'r') as file:
         lines = file.readlines()
         lines = [line.strip('\n') for line in lines]

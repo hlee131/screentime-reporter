@@ -3,7 +3,7 @@ import getpass
 import sys
 from datetime import date
 
-def setup():
+def setup(wd):
     """Setup process for user
 
     1. Logs user into their email for weekly reports
@@ -19,7 +19,7 @@ def setup():
     FREQUENCY = input('How often would you like us to get your active application (in seconds)? ')
 
     # Creates log files and folders
-    log_path = os.getcwd() + '\logs' 
+    log_path = wd + '\logs' 
     start_week = date.today().isocalendar()[1]
     try:
         os.mkdir(log_path)
@@ -28,25 +28,26 @@ def setup():
     except FileExistsError: pass
 
     # Creates graphs folders
-    graph_path = os.getcwd() + '\graphs'
+    graph_path = wd + '\graphs'
     try:
         os.mkdir(graph_path)
 
     except FileExistsError: pass
 
     # Compiles info into a config file
-    with open(f'{os.getcwd()}\config.txt', 'w') as file: 
+    with open(f'{wd}\config.txt', 'w') as file: 
         file.write(f'email : {EMAIL}\n')
         file.write(f'password : {PASSWORD}\n')
         file.write(f'frequency : {FREQUENCY}\n')
         file.write('subscribe : True')
+        file.write(f'CWD : {wd}')
 
 
-def checks():
+def checks(path):
     """Runs all the necessary checks during every startup"""
-    log_path = os.getcwd() + '\logs'
-    graph_path = os.getcwd() + '\graphs'
-    config_path = f'{os.getcwd()}\config.txt'
+    log_path = path + '\logs'
+    graph_path = path + '\graphs'
+    config_path = f'{path}\config.txt'
 
     if os.path.exists(log_path) and os.path.exists(graph_path) and os.path.exists(config_path):
         return True

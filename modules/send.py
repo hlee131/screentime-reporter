@@ -10,17 +10,17 @@ from datetime import date
 from .log import to_dict
 
 
-def send():
+def send(wd):
     """Sends message to email using smtplib"""
-    config_path = f'{os.getcwd()}/config.txt'
+    config_path = f'{wd}/config.txt'
     config = to_dict(config_path)
     EMAIL_ADDRESS = config['email']
     EMAIL_PASSWORD = config['password']
-    path = os.getcwd() + r'\modules\template.txt'
+    path = wd + r'\modules\template.txt'
     with open(path, 'r') as file:
         template = file.read()
 
-    data = _get_values()
+    data = _get_values(wd)
     msg = EmailMessage()
     msg['Subject'] = 'Your Weekly Report'
     msg['From'] = EMAIL_ADDRESS
@@ -51,18 +51,19 @@ def send():
         smtp.send_message(msg)
 
 
-def _get_values():
+def _get_values(wd):
     """Returns a tuple to insert into the HTML template"""
     pie_id = make_msgid()[1:-1]
     bar_id = make_msgid()[1:-1]
     week = date.today().isocalendar()[1]
-    week_stats = to_dict()
+    file = wd + f'\logs\{date.today().isocalendar()[1]}.txt'
+    week_stats = to_dict(file)
     this_week = round(sum([int(num)/3600 for num in week_stats.values()]), 2)
     per_day = round(this_week/7, 2)
-    path_bar = os.getcwd() + f'\graphs\{week}bar.png'
+    path_bar = wd + f'\graphs\{week}bar.png'
     total_time = 0
 
-    path = os.getcwd() + '\logs'
+    path = wd + '\logs'
     directory = os.fsencode(path)
 
     for file in os.listdir(directory):
@@ -72,14 +73,14 @@ def _get_values():
 
     total_time /= 3600
     time_per_week = total_time/len(os.listdir(path))
-    path_pie = os.getcwd() + f'\graphs\{week}pie.png'
+    path_pie = wd + f'\graphs\{week}pie.png'
 
     return this_week, per_day, bar_id, total_time, time_per_week, pie_id, path_bar, path_pie
 
 
-def sub(subscribed):
+def sub(wd, subscribed):
     """Unsubcribes from the weekly email by altering config.txt"""
-    config_path = os.getcwd() + '\config.txt'
+    config_path = wd + '\config.txt'
     config = to_dict(config_path)
     config['subscribe'] = True if subscribed else False
     with open(config_path, 'w') as file:
