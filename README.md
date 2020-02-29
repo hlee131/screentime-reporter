@@ -2,12 +2,14 @@
 screentime-reporter (STR) was developed over my mid-winter break in my freshman year in high school as my first 'real' project. The purpose of this project was not to check how much time was spent on the computer, as we all know we spend too much time on the computer, but how we are spending that time. This is supposed to then help with productivity and other things
 
 ## Installation
-1. Run (while in project directory):   
-`py main.pyw -s`
+1. `git clone https://github.com/hlee131/screentime-reporter.git` 
 
-2. Install dependencies    
+2. Run (while in project directory):   
+`py main.py -s`
 
-3. Use Windows Task Scheduler to run script on log-on:   
+3. Install dependencies    
+
+4. Use Windows Task Scheduler to run script on log-on:   
   * Click "Create Basic Task..." on the right.
   * Give the task a name, e.g. "STR" and a description and click "Next >".
   * Click "When I log on" and then "Next >".
@@ -21,11 +23,11 @@ STR checks for the active application at intervals determined by the user. At th
 ## Subscription
 To subscribe to weekly email (default):       
 (while in project directory)            
-`py main.pyw --sub`
+`py main.py --sub`
 
 To unsubscribe from weekly email:        
 (while in project directory)        
-`py main.pyw --unsub`
+`py main.py --unsub`
 
 ## What are libraries needed for this tool? 
 As of now:   
