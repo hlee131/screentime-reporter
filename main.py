@@ -54,11 +54,11 @@ def main_loop():
                 time.sleep(int(sleep_time))
 
         except Exception as e:
-        warning_box = ctypes.windll.user32.MessageBoxW
-        warning_box(None, str(e),
-                    'STR WARNING', 0)
-        print(e)
-        logging.critical(e)
+            warning_box = ctypes.windll.user32.MessageBoxW
+            warning_box(None, str(e),
+                        'STR WARNING', 0)
+            print(e)
+            logging.critical(e)
         
 
 main_loop()
