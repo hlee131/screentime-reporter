@@ -39,8 +39,8 @@ def setup(wd):
         file.write(f'email : {EMAIL}\n')
         file.write(f'password : {PASSWORD}\n')
         file.write(f'frequency : {FREQUENCY}\n')
-        file.write('subscribe : True')
-        file.write(f'CWD : {wd}')
+        file.write('subscribe : True\n')
+        file.write(f'CWD : {wd}\n')
 
 
 def checks(path):
