@@ -6,3 +6,4 @@
 *.css
 *.bat
 !**/modules/template.txt
+/.vscode

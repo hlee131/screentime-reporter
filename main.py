@@ -12,13 +12,14 @@ from modules import graph, log, send, setup
 
 def main_loop():
     path = os.path.dirname(Path(sys.argv[0]))
+    print(path)
     if len(sys.argv) > 1:
             logging.info('sys.argv detected')
-            if sys.argv[1] == '-s': setup.setup(path)
+            if sys.argv[1] == '-s': setup.setup(os.getcwd())
 
-            if sys.argv[1] == '--unsub': send.sub(path, False)
+            if sys.argv[1] == '--unsub': send.sub(os.getcwd(), False)
 
-            if sys.argv[1] == '--sub': send.sub(path, True)
+            if sys.argv[1] == '--sub': send.sub(os.getcwd(), True)
 
             return
     else:   
