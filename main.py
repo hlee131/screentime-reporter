@@ -9,17 +9,15 @@ from pathlib import Path
 
 from modules import graph, log, send, setup
 
-
+path = os.path.dirname(Path(sys.argv[0]))
+config = path + '\config.txt'
+configs = log.to_dict(config)
+sleep_time = configs['frequency']
+subbed = bool(configs['subscribe'])
+week_num = date.today().isocalendar()[1]
+logging.basicConfig(level=logging.INFO, filename=f'{path}\logs.txt',
+                        filemode='w', format='%(asctime)s - %(message)s')
 def main_loop():
-    path = os.path.dirname(Path(sys.argv[0]))
-    config = path + '\config.txt'
-    configs = log.to_dict(config)
-    sleep_time = configs['frequency']
-    subbed = bool(configs['subscribe'])
-    week_num = date.today().isocalendar()[1]
-    logging.basicConfig(level=logging.INFO, filename=f'{path}\logs.txt',
-                                filemode='w', format='%(asctime)s - %(message)s')
-
     if len(sys.argv) > 1:
             logging.info('sys.argv detected')
             if sys.argv[1] == '-s': setup.setup(os.getcwd())
@@ -29,8 +27,10 @@ def main_loop():
             if sys.argv[1] == '--sub': send.sub(os.getcwd(), True)
 
             return
+
     else:  
         try: 
+            # This try-except block handles the sending function
             if datetime.datetime.today().weekday() == 6 and not graph.check_graphs():
                 graph.create_bar_chart(path)
                 graph.create_pie_chart(path)
@@ -45,7 +45,11 @@ def main_loop():
         except:
                 logging.critical('Error in graphing or sending.')
 
-        try: 
+        _inner_loop()        
+
+def _inner_loop():
+    try: 
+            # This try-except block handles the logging part
             logging.info('STR started')
             if not setup.checks(path):
                 logging.error('STR not setup')
@@ -59,12 +63,12 @@ def main_loop():
                 logging.info('Logged')
                 time.sleep(int(sleep_time))
 
-        except Exception as e:
-            warning_box = ctypes.windll.user32.MessageBoxW
-            warning_box(None, str(e),
-                        'STR WARNING', 0)
-            print(e)
-            logging.critical(e)
-        
+    except Exception as e:
+        warning_box = ctypes.windll.user32.MessageBoxW
+        warning_box(None, str(e),
+                    'STR WARNING', 0)
+        print(e)
+        logging.critical(e)
+        _inner_loop()
 
 main_loop()
