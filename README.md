@@ -35,7 +35,8 @@ As of now:
 2. psutil (for monitoring)
 
 ## What are the known issues?
-1. The way the name of the active application is found prevents the application from finding the real name but rather the file name. This will be improved on in the future. 
+1. The way the name of the active application is found prevents the application from finding the real name but rather the file name.
+2. There might be permission issues. 
 
 ## Future Ideas
 1. Change log format from:   
